@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Lab2OPP.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Orders</h2>
+    <a asp-action="Create" class="btn btn-success">Create Order</a>
+</div>
+
+<table class="table table-hover table-bordered align-middle">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Delivery Address</th>
+            <th class="text-end">Total Qty</th>
+            <th style="width: 220px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var o in Model)
+        {
+            <tr>
+                <td>@o.Id</td>
+                <td>@(o.User?.Name ?? "Unknown")</td>
+                <td>@o.Date.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@o.Status</td>
+                <td>@o.DeliveryAddress</td>
+                <td class="text-end">@o.Quantity</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@o.Id" class="btn btn-outline-secondary btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@o.Id" class="btn btn-outline-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@o.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

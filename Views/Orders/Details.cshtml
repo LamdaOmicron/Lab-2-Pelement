@@ -1,0 +1,59 @@
+﻿@model Lab2OPP.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2>Order Details</h2>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">Id</dt>
+    <dd class="col-sm-10">@Model.Id</dd>
+
+    <dt class="col-sm-2">User</dt>
+    <dd class="col-sm-10">@Model.User?.Name</dd>
+
+    <dt class="col-sm-2">Date</dt>
+    <dd class="col-sm-10">@Model.Date.ToString("yyyy-MM-dd HH:mm")</dd>
+
+    <dt class="col-sm-2">Status</dt>
+    <dd class="col-sm-10">@Model.Status</dd>
+
+    <dt class="col-sm-2">Delivery Address</dt>
+    <dd class="col-sm-10">@Model.DeliveryAddress</dd>
+
+    <dt class="col-sm-2">Total Quantity</dt>
+    <dd class="col-sm-10">@Model.Quantity</dd>
+</dl>
+
+@if (Model.Items != null && Model.Items.Any())
+{
+    <h4 class="mt-4">Items</h4>
+    <table class="table table-sm table-bordered align-middle">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th class="text-end">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.Items)
+            {
+                <tr>
+                    <td>@(i.Product?.Name ?? "Unknown")</td>
+                    <td class="text-end">@i.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted mt-3">No items in this order.</p>
+}
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+</div>

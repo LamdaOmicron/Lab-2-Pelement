@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Lab2OPP.Models.OrderItem>
+
+@{
+    ViewData["Title"] = "Order Items";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Order Items</h2>
+    <a asp-action="Create" class="btn btn-success">Create Item</a>
+</div>
+
+<table class="table table-hover table-bordered align-middle">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Order</th>
+            <th>Product</th>
+            <th class="text-end">Quantity</th>
+            <th style="width: 220px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.Id</td>
+                <td>Order #@i.OrderId</td>
+                <td>@(i.Product?.Name ?? "Unknown")</td>
+                <td class="text-end">@i.Quantity</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@i.Id" class="btn btn-outline-secondary btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@i.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
